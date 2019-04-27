@@ -38,9 +38,38 @@
         <link href="style.css" rel="stylesheet">
 
         <link href="assets/css/skins/pre-school.css" rel="stylesheet">
+        <link href="https://afeld.github.io/emoji-css/emoji.css" rel="stylesheet">
         <style>
         .process-wrapper {
             padding: 110px 110px 0 110px;
+        }
+        .spinner {
+          width: 40px;
+          height: 40px;
+          background-color: #000;
+
+          margin: 100px auto;
+          -webkit-animation: sk-rotateplane 1.2s infinite ease-in-out;
+          animation: sk-rotateplane 1.2s infinite ease-in-out;
+        }
+
+        @-webkit-keyframes sk-rotateplane {
+          0% { -webkit-transform: perspective(120px) }
+          50% { -webkit-transform: perspective(120px) rotateY(180deg) }
+          100% { -webkit-transform: perspective(120px) rotateY(180deg)  rotateX(180deg) }
+        }
+
+        @keyframes sk-rotateplane {
+          0% {
+            transform: perspective(120px) rotateX(0deg) rotateY(0deg);
+            -webkit-transform: perspective(120px) rotateX(0deg) rotateY(0deg)
+          } 50% {
+            transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg);
+            -webkit-transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg)
+          } 100% {
+            transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
+            -webkit-transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
+          }
         }
         </style>
 
@@ -234,6 +263,68 @@
                   });
                   $(this).off('inview');
               }
+          });
+          $('#publicform').submit(function(event){
+            event.preventDefault();
+            var entry_name = $("#name").val();
+            var entry_email = $("#email").val();
+            var entry_phone = $("#phone").val();
+            var entry_website = $("#website").val();
+            var entry_message = $("#message").val();
+            // var entry_json_full_body = '{"sender":{"name":"beopened","email":"info@beopened.in"},"to":[{"email":"andrew2moses@gmail.com","name":"Admin"}],"htmlContent":"Hi,\n\nThe following entry was captured from beopened.in/reachus.html form\n\nName: '+entry_name+'\nEmail: '+entry_email+'\nPhone: '+entry_phone+'\nWebsite: '+entry_website+'\nMessage: '+entry_message+'\n\nRegards,\nBeopened.in\n\nNote: This is a system generated mail.","textContent":"test content","subject":"Entry received from beopened.in","replyTo":{"email":"info@beopened.in"},"tags":["reachus"]}';
+
+            var entry_json_full_body =
+            {
+              "sender":
+                {
+                  "name":"beopened",
+                  "email":"info@beopened.in"
+                },
+              "to":
+                [
+                  {
+                    "email":"andrew2moses@gmail.com",
+                    "name":"Developer"
+                  },
+                  {
+                    "email":"binzant747@gmail.com",
+                    "name":"Admin"
+                  }
+                ],
+              "htmlContent":"Hi,<br><br>The following entry was captured from beopened.in/reachus.html form<br><br>Name: "+entry_name+"<br>Email: "+entry_email+"<br>Phone: "+entry_phone+"<br>Website: "+entry_website+"<br>Message: "+entry_message+"<br><br>Regards,<br>Beopened.in<br><br>Note: This is a system generated mail.",
+              "subject":"Entry received from beopened.in - message by "+entry_name,
+              "replyTo":
+                {
+                  "email":"info@beopened.in"
+                },
+              "tags": ["reachus"]
+            };
+
+
+            $("#publicform_div").html('<br><br><p class="center-align">We are uploading your details, please wait.</p><div class="center-align spinner"></div>');
+
+            console.log(entry_json_full_body);
+            $.ajax({
+                url: 'https://api.sendinblue.com/v3/smtp/email',
+                method: 'POST',
+                dataType: "json",
+                crossDomain: true,
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify(entry_json_full_body),
+                beforeSend: function (xhr) {
+                    /* Authorization header */
+                    xhr.setRequestHeader("api-key", "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");
+                },
+                success: function (data) {
+                    console.log(data);
+                    $("#publicform_div").html('<br><br><h3 class="center-align">Thank you! We will contact you shortly.</h3><center><i class="em em---1" style="height: 3.5em;width: 3.5em;"></i></center>');
+                },
+                error: function (data) {
+                    console.log(data);
+                    $("#publicform_div").html('<br><br><h3 class="center-align">Sorry, somthing went wrong.</h3><center><i class="em em-fearful" style="height: 3.5em;width: 3.5em;"></i></center>');
+
+                }
+            });
           });
 
           });

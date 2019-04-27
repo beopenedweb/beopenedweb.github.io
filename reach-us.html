@@ -12,13 +12,13 @@ layout: default
       </div>
 
     <div class="row">
-        <div class="col-md-8">
-            <form name="contact-form" id="contactForm" action="sendemail.php" method="POST">
-
+        <div id="publicform_div" class="col-md-8">
+            <!-- <form id="contactForm"> -->
+            <form id="publicform">
               <div class="row">
                 <div class="col-md-6">
                   <div class="input-field">
-                    <input type="text" name="name" class="validate" id="name">
+                    <input type="text" name="name" class="validate" id="name" required>
                     <label for="name">Name</label>
                   </div>
 
@@ -50,11 +50,12 @@ layout: default
               </div><!-- /.row -->
 
               <div class="input-field">
-                <textarea name="message" id="message" class="materialize-textarea" ></textarea>
+                <textarea name="message" id="message" class="materialize-textarea" required></textarea>
                 <label for="message">Message</label>
               </div>
 
-              <button type="submit" name="submit" class="waves-effect waves-light btn submit-button pink mt-30">Send Message</button>
+              <!-- <button type="submit" name="submit" class="waves-effect waves-light btn submit-button pink mt-30">Send Message</button> -->
+              <button type="submit" class="waves-effect waves-light btn submit-button pink mt-30 right">Send Message</button>
             </form>
         </div><!-- /.col-md-8 -->
 
