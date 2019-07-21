@@ -79,6 +79,18 @@ Background page title
     background-size: cover;
     background-repeat: no-repeat;
 }
+.page-title-bg-oshi {
+    background-image: url(../../img/page-header/oshi.jpg); /*default bg for every page*/
+    background-position: 50% 0;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+.page-title-bg-shine {
+    background-image: url(../../img/page-header/shine.jpg); /*default bg for every page*/
+    background-position: 50% 0;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
 
 /* ----------------------------------------------------------------
 Fixed-background page title
@@ -154,6 +166,6 @@ Center page title
         right: 0 !important;
         top: 0 !important;
         margin: 10px 0 0 !important;
-        position: relative !important;   
+        position: relative !important;
     }
 }
