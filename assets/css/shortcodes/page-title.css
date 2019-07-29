@@ -91,6 +91,12 @@ Background page title
     background-size: cover;
     background-repeat: no-repeat;
 }
+.page-title-bg-propel {
+    background-image: url(../../img/page-header/propel.jpg); /*default bg for every page*/
+    background-position: 50% 0;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
 
 /* ----------------------------------------------------------------
 Fixed-background page title
